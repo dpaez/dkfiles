@@ -17,6 +17,7 @@
 `dkfiles` all are about vim.
 
 - [nvim](https://github.com/neovim/neovim/wiki/Installing-Neovim#macos--os-x)
+- [plug](https://github.com/junegunn/vim-plug#neovim)
 
 ## Instructions
 
@@ -26,5 +27,7 @@
     2. `ln -s ~/dkfiles/profile ~/.profile`
     3. `ln -s ~/dkfiles/vimrc ~/.vimrc`
     4. `ln -s ~/dkfiles/vim ~/.vim`
+    
+## Extra
 
-
+- [z](https://github.com/rupa/z)
