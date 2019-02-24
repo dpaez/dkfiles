@@ -25,6 +25,6 @@
     1. `ln -s ~/dkfiles/bash_profile ~/.bash_profile`
     2. `ln -s ~/dkfiles/profile ~/.profile`
     3. `ln -s ~/dkfiles/vimrc ~/.vimrc`
-    4. `ln -s ~/dotfiles/vim ~/.vim`
+    4. `ln -s ~/dkfiles/vim ~/.vim`
 
 
