@@ -7,6 +7,7 @@
 - [brew](https://brew.sh/index_es)
 - python3
     - `brew install python`
+    - `brew install pip3`
 - [nvm](https://github.com/creationix/nvm)
     - install latest LTS
 - iterm2
