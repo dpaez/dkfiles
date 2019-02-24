@@ -1,6 +1,6 @@
 # dkfiles
 
-> My humble doftiles :sweat:
+> My humble doftiles :sweat_smile:
 
 ## Requirements
 
