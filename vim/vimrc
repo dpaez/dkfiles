@@ -10,10 +10,11 @@ set showtabline=2
 
 syntax on
 set background=dark
+" silent! so the very first start (before vim-plug installs the theme) doesn't error
 if has('nvim')
-  colorscheme catppuccin          " catppuccin-latte, -frappe, -macchiato, -mocha
+  silent! colorscheme catppuccin          " catppuccin-latte, -frappe, -macchiato, -mocha
 else
-  colorscheme catppuccin_mocha    " catppuccin/vim names: catppuccin_latte, _frappe, _macchiato, _mocha
+  silent! colorscheme catppuccin_mocha    " catppuccin/vim names: catppuccin_latte, _frappe, _macchiato, _mocha
 endif
 
 set lazyredraw
@@ -32,6 +33,12 @@ set clipboard=unnamed,unnamedplus
 set expandtab        " tabs are spaces, not tabs
 set shiftwidth=2     " columns used by reindent operations (<< and >>)
 set softtabstop=2    " number of spaces to use for autoindenting
+
+" :grep uses ripgrep (results go to the quickfix list: :copen, ]q / [q)
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
+endif
 
 " Fast saving
 nmap <leader>w :w!<cr>

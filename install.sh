@@ -42,6 +42,7 @@ link ghostty/config  "$HOME/.config/ghostty/config"
 link vim/vimrc       "$HOME/.vimrc"
 link vim/plug.vim    "$HOME/.vim/plug.vim"
 link nvim/init.vim   "$HOME/.config/nvim/init.vim"
+link nvim/lua/lsp.lua "$HOME/.config/nvim/lua/lsp.lua"
 
 # Ghostty on macOS also reads this file, and it overrides ~/.config/ghostty/config
 ghostty_mac="$HOME/Library/Application Support/com.mitchellh.ghostty/config"

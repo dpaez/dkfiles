@@ -14,8 +14,9 @@ macOS setup built around **Ghostty**, **zsh** (zinit + [pure](https://github.com
 | `ghostty/config` | `~/.config/ghostty/config` | theme follows macOS light/dark |
 | `vim/vimrc` | `~/.vimrc` | shared by Vim and Neovim |
 | `vim/plug.vim` | `~/.vim/plug.vim` | [vim-plug](https://github.com/junegunn/vim-plug) plugin list |
-| `nvim/init.vim` | `~/.config/nvim/init.vim` | loads `~/.vimrc` |
-| `Brewfile` | — | CLI tools, apps, fonts, VSCodium extensions |
+| `nvim/init.vim` | `~/.config/nvim/init.vim` | loads `~/.vimrc`, then `lsp.lua` |
+| `nvim/lua/lsp.lua` | `~/.config/nvim/lua/lsp.lua` | built-in LSP: TypeScript + ESLint, completion while typing |
+| `Brewfile` | — | CLI tools, language servers, apps, fonts, VSCodium extensions |
 
 ## New machine
 

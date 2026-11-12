@@ -110,6 +110,17 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 
+" Search and replace across the project: :CtrlSF <pattern>, edit the results, :w
+Plug 'dyng/ctrlsf.vim'
+let g:ctrlsf_backend = 'rg'
+nmap <Leader>f <Plug>CtrlSFPrompt
+vmap <Leader>f <Plug>CtrlSFVwordPath
+
+" Ready-made language server settings for Neovim's built-in LSP (nvim/lua/lsp.lua)
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+endif
+
 " Pencil is a plugin for writing prose (eg: md) on Vim. Helps with soft breaks
 Plug 'reedes/vim-pencil'
 

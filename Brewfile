@@ -13,6 +13,12 @@ brew "gh"
 brew "gnupg"          # commit signing
 brew "htop"
 brew "neovim"
+brew "ripgrep"        # fast search: :grep, ctrlsf.vim
+
+# --- Language servers (Neovim built-in LSP, see nvim/lua/lsp.lua) ---
+brew "typescript-language-server"   # ts_ls
+brew "typescript"
+brew "vscode-langservers-extracted" # eslint (also html, css, json)
 
 # --- Cloud & infra ---
 brew "aws-sam-cli"
