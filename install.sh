@@ -82,4 +82,22 @@ if [ "${1:-}" = "--brew" ]; then
   brew bundle --file="$DOTFILES/Brewfile"
 fi
 
+# Colors only when printing to a terminal
+if [ -t 1 ]; then
+  c_logo=$'\033[1;35m' c_ok=$'\033[1;32m' c_off=$'\033[0m'
+else
+  c_logo='' c_ok='' c_off=''
+fi
+
+printf '\n%s' "$c_logo"
+cat <<'BANNER'
+  ██████╗  ██╗  ██╗ ███████╗ ██╗ ██╗      ███████╗ ███████╗
+  ██╔══██╗ ██║ ██╔╝ ██╔════╝ ██║ ██║      ██╔════╝ ██╔════╝
+  ██║  ██║ █████╔╝  █████╗   ██║ ██║      █████╗   ███████╗
+  ██║  ██║ ██╔═██╗  ██╔══╝   ██║ ██║      ██╔══╝   ╚════██║
+  ██████╔╝ ██║  ██╗ ██║      ██║ ███████╗ ███████╗ ███████║
+  ╚═════╝  ╚═╝  ╚═╝ ╚═╝      ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝
+BANNER
+printf '%s\n' "$c_off"
+printf '                   %s✔  I N S T A L L E D  ✔%s\n\n' "$c_ok" "$c_off"
 echo "Done. Open a new terminal; zinit and vim-plug install their plugins on first run."
