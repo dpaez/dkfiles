@@ -17,7 +17,7 @@ macOS setup built around **Ghostty**, **zsh** (zinit + [pure](https://github.com
 | `nvim/init.vim` | `~/.config/nvim/init.vim` | loads `~/.vimrc`, then `lsp.lua` |
 | `nvim/lua/lsp.lua` | `~/.config/nvim/lua/lsp.lua` | built-in LSP: TypeScript + ESLint, completion while typing |
 | `nvm/default-packages` | `~/.nvm/default-packages` | global npm packages nvm installs with every Node version (`sfw`) |
-| `Brewfile` | — | CLI tools, language servers, apps, fonts, VSCodium extensions |
+| `Brewfile` | — | CLI tools, language servers, apps, fonts |
 
 ## New machine
 
