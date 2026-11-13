@@ -1,34 +1,49 @@
 # dkfiles
 
-> My humble doftiles :sweat_smile:
+> My humble dotfiles :sweat_smile:
 
-## Requirements
+macOS setup built around **Ghostty**, **zsh** (zinit + [pure](https://github.com/sindresorhus/pure)) and **Neovim**.
 
-- [brew](https://brew.sh/index_es)
-- python3
-    - `brew install python`
-    - `brew install pip3`
-- [nvm](https://github.com/creationix/nvm)
-    - install latest LTS
-- iterm2
-- THEME: [dracula](https://draculatheme.com/iterm/)
+## What's inside
 
-### VIM
+| Path | Linked to | Notes |
+|---|---|---|
+| `zsh/zshrc` | `~/.zshrc` | zinit plugins, history, aliases, PATH |
+| `zsh/zprofile` | `~/.zprofile` | Homebrew + OrbStack |
+| `git/gitconfig` | `~/.gitconfig` | aliases, diff-so-fancy, GPG signing |
+| `ghostty/config` | `~/.config/ghostty/config` | theme follows macOS light/dark |
+| `vim/vimrc` | `~/.vimrc` | shared by Vim and Neovim |
+| `vim/plug.vim` | `~/.vim/plug.vim` | [vim-plug](https://github.com/junegunn/vim-plug) plugin list |
+| `nvim/init.vim` | `~/.config/nvim/init.vim` | loads `~/.vimrc`, then `lsp.lua` |
+| `nvim/lua/lsp.lua` | `~/.config/nvim/lua/lsp.lua` | built-in LSP: TypeScript + ESLint, completion while typing |
+| `nvm/default-packages` | `~/.nvm/default-packages` | global npm packages nvm installs with every Node version (`sfw`) |
+| `Brewfile` | — | CLI tools, language servers, apps, fonts |
 
-`dkfiles` all are about vim.
+## New machine
 
-- [nvim](https://github.com/neovim/neovim/wiki/Installing-Neovim#macos--os-x)
-- [plug](https://github.com/junegunn/vim-plug#neovim)
+1. Install [Homebrew](https://brew.sh).
+2. Clone and install:
 
-### bash
-- [bash-git-prompt](https://github.com/magicmonty/bash-git-prompt)
-- [z](https://github.com/rupa/z)
+   ```sh
+   git clone https://github.com/dpaez/dkfiles ~/Projects/dkfiles
+   cd ~/Projects/dkfiles
+   ./install.sh --brew
+   ```
 
-## Instructions
+3. Open a new Ghostty window. zinit installs itself and the zsh plugins on first run.
+4. Open `nvim` once; vim-plug installs the plugins.
 
-1. clone the repo
-2. create the links
-    1. `ln -s ~/dkfiles/bash_profile ~/.bash_profile`
-    2. `ln -s ~/dkfiles/profile ~/.profile`
-    3. `ln -s ~/dkfiles/vimrc ~/.vimrc`
-    4. `ln -s ~/dkfiles/vim ~/.vim`
+`install.sh` is safe to re-run. Anything it would replace is moved to `~/.dotfiles-backup/<timestamp>/`.
+
+## Not in this repo
+
+- `~/.gitconfig-work`: work identity, included for repos under `~/Projects/agility/`.
+- GPG keys: commits are signed (`commit.gpgsign = true`), so import your key before committing.
+- The **Circular Air** font used for Ghostty's title bar (commercial; install it manually).
+- Node: `install.sh` clones [nvm](https://github.com/nvm-sh/nvm) into `~/.nvm` (used by the `zsh-nvm` plugin), and `--brew` installs the latest LTS. [pyenv](https://github.com/pyenv/pyenv) needs installing separately if you want it.
+- `~/Projects/agility/.envrc`: makes everything under that folder use the work GitHub account (run `direnv allow` once):
+
+  ```sh
+  export GH_TOKEN="$(gh auth token --user dpaez-agilityio)"            # gh + HTTPS git
+  export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_work -o IdentitiesOnly=yes"  # SSH git
+  ```

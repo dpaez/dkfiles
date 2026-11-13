@@ -1,0 +1,82 @@
+" ~/.vimrc — shared by Vim and Neovim (nvim/init.vim sources this file)
+let mapleader = ","
+set shell=/bin/zsh
+
+source ~/.vim/plug.vim
+
+set termguicolors
+set mouse=a          " enable mouse
+set showtabline=2
+
+syntax on
+set background=dark
+" silent! so the very first start (before vim-plug installs the theme) doesn't error
+if has('nvim')
+  silent! colorscheme catppuccin          " catppuccin-latte, -frappe, -macchiato, -mocha
+else
+  silent! colorscheme catppuccin_mocha    " catppuccin/vim names: catppuccin_latte, _frappe, _macchiato, _mocha
+endif
+
+set lazyredraw
+set nocursorline
+set nobackup
+set nowritebackup
+set noswapfile
+set ignorecase       " case-insensitive search...
+set smartcase        " ...unless the pattern has uppercase
+set nowrap           " no wrap long lines
+set number           " line numbers on
+set relativenumber   " relative numbers on
+set hidden           " allow buffer switching without saving
+set clipboard=unnamed,unnamedplus
+set expandtab        " tabs are spaces, not tabs
+set shiftwidth=2     " columns used by reindent operations (<< and >>)
+set softtabstop=2    " number of spaces to use for autoindenting
+
+" :grep uses ripgrep (results go to the quickfix list: :copen, ]q / [q)
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
+endif
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" search on visual selector text
+function! s:VSetSearch(cmdtype)
+    let temp = @s
+    norm! gv"sy
+    let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+    let @s = temp
+endfunction
+
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+
+" custom keymaps
+nnoremap <C-s> :update<CR>
+inoremap <C-s> <ESC>:update<CR>
+
+" buffer config
+nnoremap <C-right> :bnext<CR>
+nnoremap <C-left> :bprevious<CR>
+
+" fuck you :suspend
+nnoremap <C-z> <nop>
+
+" Autocommands live in a group that is cleared first, so re-sourcing this
+" file (vim-plug does it after the first install) doesn't add duplicates
+augroup dkfiles_vimrc
+  autocmd!
+  " reload files changed outside the editor
+  autocmd BufEnter,FocusGained * checktime
+  " use hjs extension with haskell syntax
+  autocmd BufNewFile,BufRead *.hjs setlocal ft=haskell
+  " Restore a block cursor when Neovim exits
+  if has('nvim')
+    autocmd VimLeave * set guicursor=a:block-blinkon0
+  endif
+augroup END
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <C-Space> ?

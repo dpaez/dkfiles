@@ -1,0 +1,34 @@
+# Ghostty — see `ghostty +show-config --default --docs` for every option
+
+# Theme follows macOS light/dark mode
+window-theme = system
+theme = dark:Everblush,light:One Half Light
+
+# Fonts (Lilex is in the Brewfile; Circular Air is a commercial font, install manually)
+font-family = "Lilex"
+font-size = 18
+font-thicken = true
+window-title-font-family = "Circular Air"
+adjust-cell-height = 9%
+
+# Colors
+window-colorspace = display-p3
+selection-invert-fg-bg = true
+bold-is-bright = true
+minimum-contrast = 2
+
+# Window
+macos-titlebar-style = transparent
+background-opacity = 0.90
+background-blur-radius = 20
+window-padding-x = 15
+window-padding-y = 10
+
+# Cursor
+shell-integration-features = no-cursor
+cursor-style = block
+cursor-opacity = .8
+
+# Input
+macos-option-as-alt = left
+mouse-hide-while-typing = true

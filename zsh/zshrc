@@ -1,0 +1,108 @@
+# ~/.zshrc — interactive shell config.
+# Homebrew and OrbStack are set up in ~/.zprofile.
+
+# --- PATH ----------------------------------------------------------------
+# Keep entries unique; (N-/) drops directories that don't exist on this machine.
+typeset -U path fpath
+
+export PNPM_HOME="$HOME/Library/pnpm"
+
+path=(
+  $HOME/.local/bin(N-/)
+  $HOME/.hunk/bin(N-/)
+  $PNPM_HOME(N-/)
+  $HOME/.bun/bin(N-/)
+  $HOME/.opencode/bin(N-/)
+  $path
+)
+
+# Docker CLI completions (must be in fpath before compinit runs)
+fpath=($HOME/.docker/completions(N-/) $fpath)
+
+# --- Environment ---------------------------------------------------------
+export EDITOR=nvim
+export VISUAL=nvim
+export GPG_TTY=$TTY
+export SAM_CLI_TELEMETRY=0
+export BAT_THEME_DARK=TwoDark
+export BAT_THEME_LIGHT=OneHalfLight
+
+# --- History -------------------------------------------------------------
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt extended_history       # save timestamps
+setopt share_history          # share history between open shells
+setopt hist_ignore_all_dups   # drop older duplicates
+setopt hist_ignore_space      # commands starting with a space aren't saved
+setopt hist_reduce_blanks
+
+# --- zinit ---------------------------------------------------------------
+ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
+if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
+  print -P "%F{blue}Installing zinit…%f"
+  command mkdir -p "${ZINIT_HOME:h}"
+  command git clone https://github.com/zdharma-continuum/zinit "$ZINIT_HOME"
+fi
+source "$ZINIT_HOME/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Prompt — loaded right away so the first prompt is already pure
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+
+# Everything else loads in the background after the first prompt (Turbo)
+zinit wait lucid for \
+  atload"_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+  zdharma-continuum/fast-syntax-highlighting \
+  zdharma-continuum/history-search-multi-word \
+  agkozak/zsh-z \
+  ael-code/zsh-colored-man-pages \
+  blockf atpull"zinit creinstall -q ." \
+    zsh-users/zsh-completions \
+  as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX" src"etc/git-extras-completion.zsh" \
+    tj/git-extras
+
+# Initialize completion once, after the plugins above have loaded
+zinit ice id-as"zinit/compinit" lucid as"null" wait"0c" atload"zicompinit; zicdreplay"
+zinit light zdharma-continuum/null
+
+# nvm (via zsh-nvm), loaded about a second after the prompt.
+# sfw is a global npm package, so its aliases are set once nvm has put Node on PATH.
+zinit ice wait"1" lucid atload"_sfw_aliases"
+zinit light lukechilds/zsh-nvm
+
+# --- Completion ----------------------------------------------------------
+zstyle ':completion:*' menu select
+
+# --- Key bindings --------------------------------------------------------
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+
+# --- Aliases -------------------------------------------------------------
+alias zshconfig="$EDITOR ~/.zshrc"
+alias vim="nvim"
+alias cat="bat"
+alias ll="eza -l --git"
+
+# Route package managers through Socket Firewall, but only if sfw is installed
+# (it comes from nvm/default-packages); called after zsh-nvm loads, see above
+_sfw_aliases() {
+  (( $+commands[sfw] )) || return 0
+  local cmd
+  for cmd in npm yarn pnpm pip uv bun bunx cargo; do
+    alias $cmd="sfw $cmd"
+  done
+}
+
+# --- Tools ---------------------------------------------------------------
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init - zsh)"
+fi
+
+# direnv: loads/unloads .envrc per directory (e.g. GH_TOKEN for the work gh account)
+if command -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi

@@ -1,0 +1,27 @@
+[user]
+	name = Diego Paez
+	email = diego@geutstudio.com
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[core]
+	editor = nvim
+	pager = diff-so-fancy | less --tabs=2 -RFX
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[merge]
+	tool = opendiff
+# Work identity lives outside this repo (~/.gitconfig-work).
+# The work SSH key and gh account are picked by ~/Projects/agility/.envrc (direnv).
+[includeIf "gitdir:~/Projects/agility/"]
+	path = ~/.gitconfig-work
