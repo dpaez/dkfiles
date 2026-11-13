@@ -16,6 +16,7 @@ macOS setup built around **Ghostty**, **zsh** (zinit + [pure](https://github.com
 | `vim/plug.vim` | `~/.vim/plug.vim` | [vim-plug](https://github.com/junegunn/vim-plug) plugin list |
 | `nvim/init.vim` | `~/.config/nvim/init.vim` | loads `~/.vimrc`, then `lsp.lua` |
 | `nvim/lua/lsp.lua` | `~/.config/nvim/lua/lsp.lua` | built-in LSP: TypeScript + ESLint, completion while typing |
+| `nvm/default-packages` | `~/.nvm/default-packages` | global npm packages nvm installs with every Node version (`sfw`) |
 | `Brewfile` | — | CLI tools, language servers, apps, fonts, VSCodium extensions |
 
 ## New machine
@@ -39,7 +40,7 @@ macOS setup built around **Ghostty**, **zsh** (zinit + [pure](https://github.com
 - `~/.gitconfig-work`: work identity, included for repos under `~/Projects/agility/`.
 - GPG keys: commits are signed (`commit.gpgsign = true`), so import your key before committing.
 - The **Circular Air** font used for Ghostty's title bar (commercial; install it manually).
-- [nvm](https://github.com/nvm-sh/nvm) is installed by the `zsh-nvm` plugin; [pyenv](https://github.com/pyenv/pyenv) needs installing separately if you want it.
+- Node: `install.sh` clones [nvm](https://github.com/nvm-sh/nvm) into `~/.nvm` (used by the `zsh-nvm` plugin), and `--brew` installs the latest LTS. [pyenv](https://github.com/pyenv/pyenv) needs installing separately if you want it.
 - `~/Projects/agility/.envrc`: makes everything under that folder use the work GitHub account (run `direnv allow` once):
 
   ```sh

@@ -28,7 +28,6 @@ set nowrap           " no wrap long lines
 set number           " line numbers on
 set relativenumber   " relative numbers on
 set hidden           " allow buffer switching without saving
-au BufEnter,FocusGained * checktime
 set clipboard=unnamed,unnamedplus
 set expandtab        " tabs are spaces, not tabs
 set shiftwidth=2     " columns used by reindent operations (<< and >>)
@@ -64,13 +63,19 @@ nnoremap <C-left> :bprevious<CR>
 " fuck you :suspend
 nnoremap <C-z> <nop>
 
-" use hjs extension with haskell syntax
-au BufNewFile,BufRead *.hjs setlocal ft=haskell
-
-" Restore a block cursor when Neovim exits
-if has('nvim')
-  au VimLeave * set guicursor=a:block-blinkon0
-endif
+" Autocommands live in a group that is cleared first, so re-sourcing this
+" file (vim-plug does it after the first install) doesn't add duplicates
+augroup dkfiles_vimrc
+  autocmd!
+  " reload files changed outside the editor
+  autocmd BufEnter,FocusGained * checktime
+  " use hjs extension with haskell syntax
+  autocmd BufNewFile,BufRead *.hjs setlocal ft=haskell
+  " Restore a block cursor when Neovim exits
+  if has('nvim')
+    autocmd VimLeave * set guicursor=a:block-blinkon0
+  endif
+augroup END
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /

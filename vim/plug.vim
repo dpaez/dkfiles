@@ -82,8 +82,11 @@ let g:user_emmet_leader_key='<C-Z>'
 
 " Show whitespaces in your code and you can strip them
 Plug 'ntpeters/vim-better-whitespace'
-" whitestrip on save
-autocmd BufWritePre * StripWhitespace
+" whitestrip on save (in a cleared group so re-sourcing doesn't add it twice)
+augroup dkfiles_plug
+  autocmd!
+  autocmd BufWritePre * StripWhitespace
+augroup END
 
 " Move your code lines in a cool way
 Plug 'matze/vim-move'

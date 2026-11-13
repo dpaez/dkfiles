@@ -38,9 +38,7 @@ cask "ngrok"
 cask "docker/tap/sbx", trusted: true
 cask "vscodium"
 
-# --- Global npm packages ---
-npm "factory-schrodinger"
-npm "sfw"
+# Node comes from nvm, not Homebrew; global npm packages are in nvm/default-packages
 
 # --- VSCodium extensions ---
 vscode "alexdauenhauer.catppuccin-noctis"
