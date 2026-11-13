@@ -23,8 +23,6 @@ brew "vscode-langservers-extracted" # eslint (also html, css, json)
 brew "aws-sam-cli"
 brew "awscli"
 brew "cfn-lint"
-brew "cloudflared"
-brew "flyctl"
 brew "k6"
 brew "mkcert"
 
